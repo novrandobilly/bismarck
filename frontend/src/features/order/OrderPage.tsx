@@ -4,14 +4,15 @@ import type { Session } from '@/types/session'
 
 function isSessionClosed(session: Session, orderCount: number): boolean {
   if (session.status === 'closed') return true
-  if (new Date() > new Date(session.order_deadline)) return true
+  const deadline = new Date(session.order_deadline)
+  if (!isNaN(deadline.getTime()) && new Date() > deadline) return true
   if (session.max_orders > 0 && orderCount >= session.max_orders) return true
   return false
 }
 
 export default function OrderPage() {
   const { sessionId } = useParams<{ sessionId: string }>()
-  const { data, isLoading, error } = useSession(sessionId!)
+  const { data, isLoading, error } = useSession(sessionId)
 
   if (isLoading) {
     return (

@@ -10,25 +10,26 @@ export interface SessionData {
 }
 
 async function fetchSession(sessionId: string): Promise<SessionData> {
-  const [session, sessionItemsResult, orderCountResult] = await Promise.all([
+  const [session, sessionItems, orderCountResult] = await Promise.all([
     pb.collection('sessions').getOne<Session>(sessionId),
-    pb.collection('session_items').getList<SessionItem>(1, 200, {
-      filter: `session = "${sessionId}" && is_available = true`,
+    pb.collection('session_items').getFullList<SessionItem>({
+      filter: pb.filter('session = {:id} && is_available = true', { id: sessionId }),
       expand: 'menu_item',
       sort: '+menu_item.name',
     }),
     pb.collection('orders').getList(1, 1, {
-      filter: `session = "${sessionId}"`,
+      filter: pb.filter('session = {:id}', { id: sessionId }),
       fields: 'id',
     }),
   ])
-  return { session, sessionItems: sessionItemsResult.items, orderCount: orderCountResult.totalItems }
+  return { session, sessionItems, orderCount: orderCountResult.totalItems }
 }
 
-export function useSession(sessionId: string) {
+export function useSession(sessionId: string | undefined) {
   return useQuery({
     queryKey: ['session', sessionId],
-    queryFn: () => fetchSession(sessionId),
+    queryFn: () => fetchSession(sessionId!),
     retry: false,
+    enabled: !!sessionId,
   })
 }
