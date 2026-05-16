@@ -3,6 +3,9 @@ import { useSession } from './hooks/useSession'
 import { useOrderForm } from './hooks/useOrderForm'
 import { SessionHeader } from './components/SessionHeader'
 import { MenuSection } from './components/MenuSection'
+import { CustomerDetails } from './components/CustomerDetails'
+import { FulfillmentSection } from './components/FulfillmentSection'
+import { NotesSection } from './components/NotesSection'
 import type { Session } from '@/types/session'
 
 function isSessionClosed(session: Session, orderCount: number): boolean {
@@ -52,9 +55,17 @@ export default function OrderPage() {
     <div className="min-h-screen bg-stone-50">
       <div className="max-w-lg mx-auto px-4 py-6">
         <SessionHeader session={data.session} />
-        <form>
+        <form onSubmit={form.handleSubmit(() => {})}>
           <MenuSection sessionItems={data.sessionItems} form={form} />
-          <p className="text-stone-400 text-sm">Customer details coming in next task...</p>
+          <CustomerDetails form={form} />
+          <FulfillmentSection form={form} session={data.session} />
+          <NotesSection form={form} />
+          <button
+            type="submit"
+            className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-xl py-3 text-sm transition-colors mb-8"
+          >
+            Place Order
+          </button>
         </form>
       </div>
     </div>
