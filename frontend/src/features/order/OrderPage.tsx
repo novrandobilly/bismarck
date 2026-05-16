@@ -19,7 +19,7 @@ function isSessionClosed(session: Session, orderCount: number): boolean {
 export default function OrderPage() {
   const { sessionId } = useParams<{ sessionId: string }>()
   const { data, isLoading, error } = useSession(sessionId)
-  const form = useOrderForm(data?.sessionItems ?? [])
+  const form = data ? useOrderForm(data.sessionItems, data.session) : null
 
   if (isLoading) {
     return (
@@ -62,6 +62,7 @@ export default function OrderPage() {
           <NotesSection form={form} />
           <button
             type="submit"
+            disabled
             className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-xl py-3 text-sm transition-colors mb-8"
           >
             Place Order

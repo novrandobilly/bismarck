@@ -5,6 +5,8 @@ import { z } from 'zod'
 import { useEffect } from 'react'
 import type { SessionItem } from '@/types/menu'
 import type { OrderFormValues } from '@/types/order'
+import type { Session } from '@/types/session'
+import type { FulfillmentType } from '@/types/order'
 
 const schema = z.object({
   customer_name: z.string().min(1, 'Name is required'),
@@ -29,13 +31,18 @@ const schema = z.object({
   }
 })
 
-export function useOrderForm(sessionItems: SessionItem[]) {
+export function useOrderForm(sessionItems: SessionItem[], session: Session) {
+  const defaultFulfillment: FulfillmentType =
+    session.allow_pickup ? 'pickup'
+    : session.allow_delivery ? 'delivery'
+    : 'custom'
+
   const form = useForm<OrderFormValues>({
     resolver: zodResolver(schema) as Resolver<OrderFormValues>,
     defaultValues: {
       customer_name: '',
       whatsapp: '',
-      fulfillment_type: 'pickup',
+      fulfillment_type: defaultFulfillment,
       delivery_address: '',
       custom_location: '',
       notes: '',
