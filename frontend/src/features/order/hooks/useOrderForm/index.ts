@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import type { Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useEffect } from 'react'
@@ -30,7 +31,7 @@ const schema = z.object({
 
 export function useOrderForm(sessionItems: SessionItem[]) {
   const form = useForm<OrderFormValues>({
-    resolver: zodResolver(schema) as any,
+    resolver: zodResolver(schema) as Resolver<OrderFormValues>,
     defaultValues: {
       customer_name: '',
       whatsapp: '',
@@ -43,7 +44,7 @@ export function useOrderForm(sessionItems: SessionItem[]) {
   })
 
   useEffect(() => {
-    if (sessionItems.length > 0) {
+    if (sessionItems.length > 0 && form.getValues('items').length === 0) {
       form.setValue('items', sessionItems.map(si => ({ session_item_id: si.id, quantity: 0 })))
     }
   }, [sessionItems, form])

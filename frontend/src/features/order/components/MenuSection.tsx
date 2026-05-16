@@ -25,7 +25,8 @@ export function MenuSection({ sessionItems, form }: Props) {
   return (
     <div className="mb-6">
       <h2 className="text-base font-bold text-stone-800 mb-1">Menu</h2>
-      {itemsError && typeof itemsError === 'object' && 'message' in itemsError && (
+      {itemsError && typeof itemsError === 'object' && 'message' in itemsError &&
+        (itemsError as { message?: string }).message && (
         <p className="text-red-500 text-xs mb-2">{(itemsError as { message?: string }).message}</p>
       )}
       <div className="bg-white rounded-2xl shadow-sm px-4">
