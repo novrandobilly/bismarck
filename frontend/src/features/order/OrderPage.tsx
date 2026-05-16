@@ -1,5 +1,8 @@
 import { useParams } from 'react-router-dom'
 import { useSession } from './hooks/useSession'
+import { useOrderForm } from './hooks/useOrderForm'
+import { SessionHeader } from './components/SessionHeader'
+import { MenuSection } from './components/MenuSection'
 import type { Session } from '@/types/session'
 
 function isSessionClosed(session: Session, orderCount: number): boolean {
@@ -13,6 +16,7 @@ function isSessionClosed(session: Session, orderCount: number): boolean {
 export default function OrderPage() {
   const { sessionId } = useParams<{ sessionId: string }>()
   const { data, isLoading, error } = useSession(sessionId)
+  const form = useOrderForm(data?.sessionItems ?? [])
 
   if (isLoading) {
     return (
@@ -47,7 +51,11 @@ export default function OrderPage() {
   return (
     <div className="min-h-screen bg-stone-50">
       <div className="max-w-lg mx-auto px-4 py-6">
-        <p className="text-stone-400">Order form coming in next task...</p>
+        <SessionHeader session={data.session} />
+        <form>
+          <MenuSection sessionItems={data.sessionItems} form={form} />
+          <p className="text-stone-400 text-sm">Customer details coming in next task...</p>
+        </form>
       </div>
     </div>
   )
