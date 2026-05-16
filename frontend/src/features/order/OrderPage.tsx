@@ -1,12 +1,14 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useSession } from './hooks/useSession'
 import { useOrderForm } from './hooks/useOrderForm'
+import { useSubmitOrder } from './hooks/useSubmitOrder'
 import { SessionHeader } from './components/SessionHeader'
 import { MenuSection } from './components/MenuSection'
 import { CustomerDetails } from './components/CustomerDetails'
 import { FulfillmentSection } from './components/FulfillmentSection'
 import { NotesSection } from './components/NotesSection'
 import type { Session } from '@/types/session'
+import type { OrderFormValues } from '@/types/order'
 
 function isSessionClosed(session: Session, orderCount: number): boolean {
   if (session.status === 'closed') return true
@@ -20,6 +22,14 @@ export default function OrderPage() {
   const { sessionId } = useParams<{ sessionId: string }>()
   const { data, isLoading, error } = useSession(sessionId)
   const form = useOrderForm(data?.sessionItems ?? [], data?.session ?? null)
+  const navigate = useNavigate()
+  const { mutate: submitOrder, isPending, error: submitError } = useSubmitOrder()
+
+  function onSubmit(values: OrderFormValues) {
+    submitOrder({ sessionId: sessionId!, values }, {
+      onSuccess: () => navigate(`/order/${sessionId}/success`),
+    })
+  }
 
   if (isLoading) {
     return (
@@ -55,17 +65,18 @@ export default function OrderPage() {
     <div className="min-h-screen bg-stone-50">
       <div className="max-w-lg mx-auto px-4 py-6">
         <SessionHeader session={data.session} />
-        <form onSubmit={form.handleSubmit(() => {})}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <MenuSection sessionItems={data.sessionItems} form={form} />
           <CustomerDetails form={form} />
           <FulfillmentSection form={form} session={data.session} />
           <NotesSection form={form} />
+          {submitError && <p className="text-red-500 text-sm text-center mb-3">Something went wrong. Please try again.</p>}
           <button
             type="submit"
-            disabled
-            className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-xl py-3 text-sm transition-colors mb-8"
+            disabled={isPending}
+            className="w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-semibold rounded-xl py-3 text-sm transition-colors mb-8"
           >
-            Place Order
+            {isPending ? 'Placing order...' : 'Place Order'}
           </button>
         </form>
       </div>
