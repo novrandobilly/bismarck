@@ -10,5 +10,7 @@ export function useSessions() {
 }
 
 export function hasOpenSession(sessions: Session[]): boolean {
-  return sessions.some(s => s.status === 'open')
+  return sessions.some(
+    s => s.status === 'open' && new Date() <= new Date(s.order_deadline)
+  )
 }
