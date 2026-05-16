@@ -12,7 +12,7 @@ async function fetchSessionDetail(id: string): Promise<SessionDetailData> {
   const [session, orders] = await Promise.all([
     pb.collection('sessions').getOne<Session>(id),
     pb.collection('orders').getFullList<Order>({
-      filter: `session = "${id}"`,
+      filter: pb.filter('session = {:id}', { id }),
       expand: 'order_items(order).session_item.menu_item',
       sort: '+created',
     }),
@@ -20,9 +20,10 @@ async function fetchSessionDetail(id: string): Promise<SessionDetailData> {
   return { session, orders }
 }
 
-export function useSessionDetail(id: string) {
+export function useSessionDetail(id: string | undefined) {
   return useQuery({
     queryKey: ['session-detail', id],
-    queryFn: () => fetchSessionDetail(id),
+    queryFn: () => fetchSessionDetail(id!),
+    enabled: !!id,
   })
 }

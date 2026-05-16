@@ -10,8 +10,8 @@ import type { Order } from '@/types/order'
 export default function SessionDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const { data, isLoading } = useSessionDetail(id!)
-  const { mutate: toggleFulfilled, isPending: isToggling } = useToggleFulfilled(id!)
+  const { data, isLoading } = useSessionDetail(id)
+  const { mutate: toggleFulfilled, isPending: isToggling } = useToggleFulfilled(id)
   const { mutate: closeSession, isPending: isClosing } = useCloseSession()
 
   if (isLoading || !data) {
