@@ -8,7 +8,6 @@ export interface CustomLocation {
 }
 
 export interface Session extends RecordModel {
-  id: string
   title: string
   description: string
   fulfillment_date: string
