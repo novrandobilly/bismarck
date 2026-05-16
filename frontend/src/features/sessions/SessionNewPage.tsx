@@ -9,12 +9,12 @@ import { cn } from '@/lib/utils/cn'
 
 const schema = z.object({
   title: z.string().min(1, 'Title is required'),
-  description: z.string(),
+  description: z.string().default(''),
   fulfillment_date: z.string().min(1, 'Fulfillment date is required'),
   order_deadline: z.string().min(1, 'Order deadline is required'),
-  max_orders: z.number().int().min(0),
-  allow_pickup: z.boolean(),
-  allow_delivery: z.boolean(),
+  max_orders: z.coerce.number().int().min(0).default(0),
+  allow_pickup: z.boolean().default(true),
+  allow_delivery: z.boolean().default(false),
   custom_locations: z.array(z.object({ name: z.string().min(1), time: z.string().min(1) })),
   selectedItems: z.array(z.object({
     menu_item_id: z.string(),

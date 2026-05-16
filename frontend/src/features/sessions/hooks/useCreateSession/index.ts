@@ -27,16 +27,21 @@ async function createSession(values: SessionFormValues): Promise<Session> {
     custom_locations: values.custom_locations,
   })
 
-  await Promise.all(
-    values.selectedItems.map(item =>
-      pb.collection('session_items').create({
-        session: session.id,
-        menu_item: item.menu_item_id,
-        price: item.price,
-        is_available: item.is_available,
-      }),
-    ),
-  )
+  try {
+    await Promise.all(
+      values.selectedItems.map(item =>
+        pb.collection('session_items').create({
+          session: session.id,
+          menu_item: item.menu_item_id,
+          price: item.price,
+          is_available: item.is_available,
+        }),
+      ),
+    )
+  } catch (error) {
+    await pb.collection('sessions').delete(session.id)
+    throw error
+  }
 
   return session
 }
