@@ -19,7 +19,7 @@ function isSessionClosed(session: Session, orderCount: number): boolean {
 export default function OrderPage() {
   const { sessionId } = useParams<{ sessionId: string }>()
   const { data, isLoading, error } = useSession(sessionId)
-  const form = data ? useOrderForm(data.sessionItems, data.session) : null
+  const form = useOrderForm(data?.sessionItems ?? [], data?.session ?? null)
 
   if (isLoading) {
     return (

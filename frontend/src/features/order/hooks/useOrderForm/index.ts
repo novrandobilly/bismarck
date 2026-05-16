@@ -31,10 +31,10 @@ const schema = z.object({
   }
 })
 
-export function useOrderForm(sessionItems: SessionItem[], session: Session) {
+export function useOrderForm(sessionItems: SessionItem[], session: Session | null) {
   const defaultFulfillment: FulfillmentType =
-    session.allow_pickup ? 'pickup'
-    : session.allow_delivery ? 'delivery'
+    session?.allow_pickup ? 'pickup'
+    : session?.allow_delivery ? 'delivery'
     : 'custom'
 
   const form = useForm<OrderFormValues>({
