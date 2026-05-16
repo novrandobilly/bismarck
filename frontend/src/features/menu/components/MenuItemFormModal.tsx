@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, type Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import type { MenuItem } from '@/types/menu'
@@ -20,11 +20,12 @@ interface Props {
   onSave: (data: FormValues) => void
   onClose: () => void
   isSaving: boolean
+  saveError?: string | null
 }
 
-export function MenuItemFormModal({ item, onSave, onClose, isSaving }: Props) {
+export function MenuItemFormModal({ item, onSave, onClose, isSaving, saveError }: Props) {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<FormValues>({
-    resolver: zodResolver(schema) as any,
+    resolver: zodResolver(schema) as Resolver<FormValues>,
   })
 
   useEffect(() => {
@@ -63,6 +64,7 @@ export function MenuItemFormModal({ item, onSave, onClose, isSaving }: Props) {
             <input {...register('image')} type="file" accept="image/*" className="text-sm text-stone-600" />
           </div>
           <div className="flex gap-3 pt-2">
+            {saveError && <p className="text-red-500 text-xs mb-2 col-span-2">{saveError}</p>}
             <button type="button" onClick={onClose} className="flex-1 border border-stone-300 text-stone-700 rounded-lg py-2 text-sm hover:bg-stone-50 transition-colors">Cancel</button>
             <button type="submit" disabled={isSaving} className="flex-1 bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-semibold rounded-lg py-2 text-sm transition-colors">
               {isSaving ? 'Saving...' : 'Save'}

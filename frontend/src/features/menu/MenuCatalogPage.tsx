@@ -10,14 +10,23 @@ export default function MenuCatalogPage() {
   const { createItem, updateItem, toggleActive } = useMenuItemMutations()
   const [editTarget, setEditTarget] = useState<MenuItem | null | undefined>(undefined)
 
+  const [saveError, setSaveError] = useState<string | null>(null)
+
   const isModalOpen = editTarget !== undefined
   const isSaving = createItem.isPending || updateItem.isPending
 
   function handleSave(data: MenuItemFormData) {
+    setSaveError(null)
     if (editTarget) {
-      updateItem.mutate({ id: editTarget.id, data }, { onSuccess: () => setEditTarget(undefined) })
+      updateItem.mutate({ id: editTarget.id, data }, {
+        onSuccess: () => setEditTarget(undefined),
+        onError: (err) => setSaveError(err instanceof Error ? err.message : 'Failed to save item'),
+      })
     } else {
-      createItem.mutate(data, { onSuccess: () => setEditTarget(undefined) })
+      createItem.mutate(data, {
+        onSuccess: () => setEditTarget(undefined),
+        onError: (err) => setSaveError(err instanceof Error ? err.message : 'Failed to save item'),
+      })
     }
   }
 
@@ -62,7 +71,7 @@ export default function MenuCatalogPage() {
         )}
       </div>
       {isModalOpen && (
-        <MenuItemFormModal item={editTarget} onSave={handleSave} onClose={() => setEditTarget(undefined)} isSaving={isSaving} />
+        <MenuItemFormModal item={editTarget} onSave={handleSave} onClose={() => { setEditTarget(undefined); setSaveError(null) }} isSaving={isSaving} saveError={saveError} />
       )}
     </div>
   )
