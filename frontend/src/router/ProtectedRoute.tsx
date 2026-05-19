@@ -1,9 +1,7 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { pb } from "@/lib/pocketbase";
+import { Navigate, Outlet } from 'react-router-dom'
+import { useAuth } from '@/features/auth/hooks/useAuth'
 
 export function ProtectedRoute() {
-  if (!pb.authStore.isValid) {
-    return <Navigate to="/bismarck/login" replace />
-  }
-  return <Outlet />;
+  const { isAuthenticated } = useAuth()
+  return isAuthenticated ? <Outlet /> : <Navigate to="/bismarck/login" replace />
 }

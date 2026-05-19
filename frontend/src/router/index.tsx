@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { ProtectedRoute } from './ProtectedRoute'
+import { GuestWrapper, AdminWrapper } from '@/components/MainWrapper'
 import HomePage from '@/pages/home'
 import LoginPage from '@/pages/bismarck/login'
 import NotFoundPage from '@/pages/not-found'
@@ -11,18 +12,28 @@ import OrderPage from '@/features/order/OrderPage'
 import OrderSuccessPage from '@/features/order/OrderSuccessPage'
 
 export const router = createBrowserRouter([
-  { path: '/', element: <HomePage /> },
+  {
+    element: <GuestWrapper />,
+    children: [
+      { path: '/', element: <HomePage /> },
+      { path: '/order/:sessionId', element: <OrderPage /> },
+      { path: '/order/:sessionId/success', element: <OrderSuccessPage /> },
+    ],
+  },
   { path: '/bismarck/login', element: <LoginPage /> },
   {
     element: <ProtectedRoute />,
     children: [
-      { path: '/bismarck/sessions', element: <SessionsDashboardPage /> },
-      { path: '/bismarck/sessions/new', element: <SessionNewPage /> },
-      { path: '/bismarck/sessions/:id', element: <SessionDetailPage /> },
-      { path: '/bismarck/menu', element: <MenuCatalogPage /> },
+      {
+        element: <AdminWrapper />,
+        children: [
+          { path: '/bismarck/sessions', element: <SessionsDashboardPage /> },
+          { path: '/bismarck/sessions/new', element: <SessionNewPage /> },
+          { path: '/bismarck/sessions/:id', element: <SessionDetailPage /> },
+          { path: '/bismarck/menu', element: <MenuCatalogPage /> },
+        ],
+      },
     ],
   },
-  { path: '/order/:sessionId', element: <OrderPage /> },
-  { path: '/order/:sessionId/success', element: <OrderSuccessPage /> },
   { path: '*', element: <NotFoundPage /> },
 ])
