@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { ProtectedRoute } from './ProtectedRoute'
+import HomePage from '@/pages/home'
 import LoginPage from '@/pages/bismarck/login'
 import NotFoundPage from '@/pages/not-found'
 import MenuCatalogPage from '@/features/menu/MenuCatalogPage'
@@ -10,6 +11,7 @@ import OrderPage from '@/features/order/OrderPage'
 import OrderSuccessPage from '@/features/order/OrderSuccessPage'
 
 export const router = createBrowserRouter([
+  { path: '/', element: <HomePage /> },
   { path: '/bismarck/login', element: <LoginPage /> },
   {
     element: <ProtectedRoute />,

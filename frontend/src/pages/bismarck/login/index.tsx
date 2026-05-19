@@ -8,7 +8,7 @@ import { useAdminLogin } from '@/features/auth/hooks/useAdminLogin'
 import { cn } from '@/lib/utils/cn'
 
 const schema = z.object({
-  email: z.string().email('Invalid email'),
+  identity: z.string().min(1, 'Email or username is required'),
   password: z.string().min(1, 'Password is required'),
 })
 
@@ -41,17 +41,18 @@ export default function LoginPage() {
         <p className="text-stone-500 text-sm mb-6">Admin Login</p>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-stone-700 mb-1">Email</label>
+            <label className="block text-sm font-medium text-stone-700 mb-1">Email or Username</label>
             <input
-              {...register('email')}
-              type="email"
-              autoComplete="email"
+              {...register('identity')}
+              type="text"
+              autoComplete="username"
+              placeholder="you@example.com or your_username"
               className={cn(
                 'w-full border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-400',
-                errors.email ? 'border-red-400' : 'border-stone-300',
+                errors.identity ? 'border-red-400' : 'border-stone-300',
               )}
             />
-            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+            {errors.identity && <p className="text-red-500 text-xs mt-1">{errors.identity.message}</p>}
           </div>
           <div>
             <label className="block text-sm font-medium text-stone-700 mb-1">Password</label>
@@ -66,7 +67,7 @@ export default function LoginPage() {
             />
             {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
           </div>
-          {error && <p className="text-red-500 text-sm">Invalid email or password.</p>}
+          {error && <p className="text-red-500 text-sm">Invalid credentials.</p>}
           <button
             type="submit"
             disabled={isPending}

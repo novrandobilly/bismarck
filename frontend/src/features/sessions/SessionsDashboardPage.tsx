@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
 import { useSessions, hasOpenSession } from './hooks/useSessions'
 import { SessionCard } from './components/SessionCard'
+import { useLogout } from '@/features/auth/hooks/useLogout'
 
 export default function SessionsDashboardPage() {
   const { data: sessions = [], isLoading } = useSessions()
   const openExists = hasOpenSession(sessions)
+  const logout = useLogout()
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -14,15 +16,23 @@ export default function SessionsDashboardPage() {
             <h1 className="text-2xl font-bold text-stone-800">Pre-Order Sessions</h1>
             <p className="text-stone-500 text-sm">{sessions.length} total sessions</p>
           </div>
-          {openExists ? (
-            <div className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 max-w-[180px] text-center">
-              Close the open session before creating a new one
-            </div>
-          ) : (
-            <Link to="/bismarck/sessions/new" className="bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg px-4 py-2 text-sm transition-colors">
-              + New Session
-            </Link>
-          )}
+          <div className="flex items-center gap-3">
+            {openExists ? (
+              <div className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 max-w-[180px] text-center">
+                Close the open session before creating a new one
+              </div>
+            ) : (
+              <Link to="/bismarck/sessions/new" className="bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg px-4 py-2 text-sm transition-colors">
+                + New Session
+              </Link>
+            )}
+            <button
+              onClick={logout}
+              className="text-sm text-stone-500 hover:text-stone-800 border border-stone-300 rounded-lg px-3 py-2 transition-colors"
+            >
+              Log out
+            </button>
+          </div>
         </div>
         {isLoading ? (
           <p className="text-stone-400 text-sm">Loading sessions...</p>
