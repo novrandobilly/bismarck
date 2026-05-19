@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { pb } from '@/lib/pocketbase'
 import { useAdminLogin } from '@/features/auth/hooks/useAdminLogin'
+import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { cn } from '@/lib/utils/cn'
 
 const schema = z.object({
@@ -73,7 +74,7 @@ export default function LoginPage() {
             disabled={isPending}
             className="w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-semibold rounded-lg py-2 transition-colors"
           >
-            {isPending ? 'Signing in...' : 'Sign in'}
+            {isPending ? <LoadingSpinner size="sm" /> : 'Sign in'}
           </button>
         </form>
       </div>

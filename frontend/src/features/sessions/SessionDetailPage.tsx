@@ -5,6 +5,7 @@ import { useCloseSession } from './hooks/useCloseSession'
 import { StatsRow } from './components/StatsRow'
 import { OrderTable } from './components/OrderTable'
 import { FulfillmentBreakdown } from './components/FulfillmentBreakdown'
+import { LoadingSpinner } from '@/components/LoadingSpinner'
 import type { Order } from '@/types/order'
 
 export default function SessionDetailPage() {
@@ -15,7 +16,7 @@ export default function SessionDetailPage() {
   const { mutate: closeSession, isPending: isClosing } = useCloseSession()
 
   if (isLoading || !data) {
-    return <div className="min-h-screen flex items-center justify-center bg-stone-50"><p className="text-stone-400">Loading session...</p></div>
+    return <div className="min-h-screen flex items-center justify-center bg-stone-50"><LoadingSpinner centered /></div>
   }
 
   const { session, orders } = data

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useSessions, hasOpenSession } from './hooks/useSessions'
 import { SessionCard } from './components/SessionCard'
 import { useLogout } from '@/features/auth/hooks/useLogout'
+import { LoadingSpinner } from '@/components/LoadingSpinner'
 
 export default function SessionsDashboardPage() {
   const { data: sessions = [], isLoading } = useSessions()
@@ -35,7 +36,7 @@ export default function SessionsDashboardPage() {
           </div>
         </div>
         {isLoading ? (
-          <p className="text-stone-400 text-sm">Loading sessions...</p>
+          <LoadingSpinner centered />
         ) : sessions.length === 0 ? (
           <div className="text-center py-16">
             <p className="text-4xl mb-3">🥯</p>

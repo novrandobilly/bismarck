@@ -3,6 +3,7 @@ import { useMenuItems } from './hooks/useMenuItems'
 import { useMenuItemMutations, type MenuItemFormData } from './hooks/useMenuItemMutations'
 import { MenuItemRow } from './components/MenuItemRow'
 import { MenuItemFormModal } from './components/MenuItemFormModal'
+import { LoadingSpinner } from '@/components/LoadingSpinner'
 import type { MenuItem } from '@/types/menu'
 
 export default function MenuCatalogPage() {
@@ -43,7 +44,7 @@ export default function MenuCatalogPage() {
           </button>
         </div>
         {isLoading ? (
-          <p className="text-stone-400 text-sm">Loading menu...</p>
+          <LoadingSpinner centered />
         ) : (
           <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
             <table className="w-full">

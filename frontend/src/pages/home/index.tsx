@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { usePublicSessions, getOpenSession, getClosedSessions } from '@/features/sessions/hooks/usePublicSessions'
+import { LoadingSpinner } from '@/components/LoadingSpinner'
 import type { Session } from '@/types/session'
 
 function formatDate(dateStr: string) {
@@ -77,7 +78,7 @@ export default function HomePage() {
   const closedSessions = getClosedSessions(sessions)
 
   return (
-    <div className="min-h-screen bg-stone-50 font-sans">
+    <>
       {/* Hero */}
       <header className="bg-white border-b border-stone-100">
         <div className="max-w-3xl mx-auto px-4 py-10 flex flex-col items-center text-center">
@@ -95,7 +96,9 @@ export default function HomePage() {
         <section>
           <h2 className="text-xs font-bold text-stone-400 uppercase tracking-widest mb-4">Current Pre-Order</h2>
           {isLoading ? (
-            <div className="h-32 bg-stone-100 rounded-2xl animate-pulse" />
+            <div className="h-32 flex items-center justify-center">
+              <LoadingSpinner centered />
+            </div>
           ) : openSession ? (
             <OpenPOBanner session={openSession} />
           ) : (
@@ -112,10 +115,8 @@ export default function HomePage() {
           <section>
             <h2 className="text-xs font-bold text-stone-400 uppercase tracking-widest mb-4">Past Pre-Orders</h2>
             {isLoading ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {[...Array(3)].map((_, i) => (
-                  <div key={i} className="h-16 bg-stone-100 rounded-xl animate-pulse" />
-                ))}
+              <div className="flex items-center justify-center py-8">
+                <LoadingSpinner centered />
               </div>
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -153,13 +154,6 @@ export default function HomePage() {
         </section>
 
       </main>
-
-      <footer className="border-t border-stone-200 mt-8">
-        <div className="max-w-3xl mx-auto px-4 py-6 flex items-center justify-between text-xs text-stone-400">
-          <span>© {new Date().getFullYear()} Bismarck Bagel</span>
-          <span>Made with 🥯 & wild yeast</span>
-        </div>
-      </footer>
-    </div>
+    </>
   )
 }

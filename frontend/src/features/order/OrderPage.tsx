@@ -7,6 +7,7 @@ import { MenuSection } from './components/MenuSection'
 import { CustomerDetails } from './components/CustomerDetails'
 import { FulfillmentSection } from './components/FulfillmentSection'
 import { NotesSection } from './components/NotesSection'
+import { LoadingSpinner } from '@/components/LoadingSpinner'
 import type { Session } from '@/types/session'
 import type { OrderFormValues } from '@/types/order'
 
@@ -36,7 +37,7 @@ export default function OrderPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-stone-50">
-        <p className="text-stone-500">Loading order form...</p>
+        <LoadingSpinner overlay />
       </div>
     )
   }
@@ -78,7 +79,7 @@ export default function OrderPage() {
             disabled={isPending}
             className="w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-semibold rounded-xl py-3 text-sm transition-colors mb-8"
           >
-            {isPending ? 'Placing order...' : 'Place Order'}
+           {isPending ? <LoadingSpinner size="sm" /> : 'Place Order'}
           </button>
         </form>
       </div>
