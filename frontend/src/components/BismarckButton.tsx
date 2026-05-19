@@ -40,7 +40,8 @@ export function BismarckButton({
     <button
       disabled={disabled || isLoading}
       className={cn(
-        'font-semibold transition-colors disabled:opacity-60 flex items-center justify-center gap-2',
+        'font-semibold transition-colors disabled:opacity-60',
+        isLoading && 'flex items-center justify-center',
         variantClasses[variant],
         sizeClasses[size],
         className,
