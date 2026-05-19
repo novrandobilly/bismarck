@@ -72,6 +72,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isPending}
+            aria-label={isPending ? 'Loading…' : undefined}
             className="w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-semibold rounded-lg py-2 transition-colors"
           >
             {isPending ? <LoadingSpinner size="sm" /> : 'Sign in'}

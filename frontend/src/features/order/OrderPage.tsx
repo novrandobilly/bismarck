@@ -37,7 +37,7 @@ export default function OrderPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-stone-50">
-        <LoadingSpinner overlay />
+        <LoadingSpinner centered />
       </div>
     )
   }
@@ -77,6 +77,7 @@ export default function OrderPage() {
           <button
             type="submit"
             disabled={isPending}
+            aria-label={isPending ? 'Loading…' : undefined}
             className="w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-semibold rounded-xl py-3 text-sm transition-colors mb-8"
           >
            {isPending ? <LoadingSpinner size="sm" /> : 'Place Order'}
