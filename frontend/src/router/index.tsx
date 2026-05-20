@@ -12,6 +12,7 @@ import SessionNewPage from '@/pages/bismarck/sessions/new'
 import SessionDetailPage from '@/pages/bismarck/sessions/detail'
 import OrderPage from '@/pages/order'
 import OrderSuccessPage from '@/pages/order/success'
+import SessionOrdersPage from '@/pages/session-orders'
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
       { path: '/menu', element: <PublicMenuPage /> },
       { path: '/order/:sessionId', element: <OrderPage /> },
       { path: '/order/:sessionId/success', element: <OrderSuccessPage /> },
+      { path: '/session/:sessionId/orders', element: <SessionOrdersPage /> },
     ],
   },
   { path: '/bismarck/login', element: <LoginPage /> },
