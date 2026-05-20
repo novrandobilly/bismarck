@@ -109,7 +109,7 @@ Global catalog of all bagel/bread products.
 
 ---
 
-### `sessions`
+### `preorder_sessions`
 A pre-order event/batch.
 
 | Field | Type | Required | Notes |
@@ -128,12 +128,12 @@ One active (open) session at a time is enforced in the UI — the "Create New Se
 
 ---
 
-### `session_items`
+### `preorder_session_items`
 Junction table linking menu items to a session, with per-session price override.
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
-| session | relation → sessions | ✓ | |
+| session | relation → preorder_sessions | ✓ | |
 | menu_item | relation → menu_items | ✓ | |
 | price | number | ✓ | Initialized from `menu_item.default_price`, can be overridden |
 | is_available | bool | ✓ | Per-session toggle. True = shown on order form. |
@@ -145,7 +145,7 @@ A customer's pre-order submission.
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
-| session | relation → sessions | ✓ | |
+| session | relation → preorder_sessions | ✓ | |
 | customer_name | string | ✓ | |
 | whatsapp | string | ✓ | e.g. "08123456789" |
 | fulfillment_type | string | ✓ | `pickup`, `delivery`, or `custom` |
@@ -163,7 +163,7 @@ Individual line items within an order.
 | Field | Type | Required | Notes |
 |---|---|---|---|
 | order | relation → orders | ✓ | |
-| session_item | relation → session_items | ✓ | Price is read from session_item at display time (snapshotted in session_items) |
+| session_item | relation → preorder_session_items | ✓ | Price is read from preorder_session_items at display time (snapshotted in preorder_session_items) |
 | quantity | number | ✓ | 1–5 per flavor |
 
 ---
@@ -229,8 +229,8 @@ Orders are submitted without auth. PocketBase collection rules allow public `cre
 | Collection | List/View | Create | Update | Delete |
 |---|---|---|---|---|
 | menu_items | admins only | admins only | admins only | admins only |
-| sessions | public (read open) | admins only | admins only | admins only |
-| session_items | public | admins only | admins only | admins only |
+| preorder_sessions | public (read open) | admins only | admins only | admins only |
+| preorder_session_items | public | admins only | admins only | admins only |
 | orders | admins only | public (open sessions) | admins only (is_fulfilled) | admins only |
 | order_items | admins only | public (open sessions) | none | none |
 

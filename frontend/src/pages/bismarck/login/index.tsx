@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { pb } from '@/lib/pocketbase'
-import { useAdminLogin } from '@/features/auth/hooks/useAdminLogin'
+import { useAdminLogin } from './hooks/useAdminLogin'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { cn } from '@/lib/utils/cn'
 

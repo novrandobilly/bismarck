@@ -4,12 +4,12 @@ import { GuestWrapper, AdminWrapper } from '@/components/MainWrapper'
 import HomePage from '@/pages/home'
 import LoginPage from '@/pages/bismarck/login'
 import NotFoundPage from '@/pages/not-found'
-import MenuCatalogPage from '@/features/menu/MenuCatalogPage'
-import SessionsDashboardPage from '@/features/sessions/SessionsDashboardPage'
-import SessionNewPage from '@/features/sessions/SessionNewPage'
-import SessionDetailPage from '@/features/sessions/SessionDetailPage'
-import OrderPage from '@/features/order/OrderPage'
-import OrderSuccessPage from '@/features/order/OrderSuccessPage'
+import MenuCatalogPage from '@/pages/bismarck/menu'
+import SessionsDashboardPage from '@/pages/bismarck/sessions'
+import SessionNewPage from '@/pages/bismarck/sessions/new'
+import SessionDetailPage from '@/pages/bismarck/sessions/detail'
+import OrderPage from '@/pages/order'
+import OrderSuccessPage from '@/pages/order/success'
 
 export const router = createBrowserRouter([
   {

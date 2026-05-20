@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { usePublicSessions, getOpenSession, getClosedSessions } from '@/features/sessions/hooks/usePublicSessions'
+import { usePublicSessions, getOpenSession, getClosedSessions } from './hooks/usePublicSessions'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
 import type { Session } from '@/types/session'
 

@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom'
-import { useLogout } from '@/features/auth/hooks/useLogout'
+import { useLogout } from '@/hooks/useLogout'
 
 export function GuestWrapper() {
   return (
