@@ -24,7 +24,7 @@ async function createSession(values: SessionFormValues): Promise<Session> {
     status: 'open',
     allow_pickup: values.allow_pickup,
     allow_delivery: values.allow_delivery,
-    custom_locations: values.custom_locations,
+    custom_locations: JSON.stringify(values.custom_locations),
   })
 
   try {

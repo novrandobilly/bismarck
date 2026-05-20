@@ -63,6 +63,7 @@ export default function SessionNewPage() {
     }
     createSession(sessionValues, {
       onSuccess: (session) => navigate(`/bismarck/sessions/${session.id}`),
+      onError: (err) => console.error('Session create error:', JSON.stringify((err as any)?.response?.data ?? err, null, 2)),
     })
   }
 

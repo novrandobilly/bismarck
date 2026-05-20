@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import { ProtectedRoute } from './ProtectedRoute'
 import { GuestWrapper, AdminWrapper } from '@/components/MainWrapper'
 import HomePage from '@/pages/home'
+import PublicMenuPage from '@/pages/menu'
 import LoginPage from '@/pages/bismarck/login'
 import NotFoundPage from '@/pages/not-found'
 import MenuCatalogPage from '@/pages/bismarck/menu'
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
     element: <GuestWrapper />,
     children: [
       { path: '/', element: <HomePage /> },
+      { path: '/menu', element: <PublicMenuPage /> },
       { path: '/order/:sessionId', element: <OrderPage /> },
       { path: '/order/:sessionId/success', element: <OrderSuccessPage /> },
     ],

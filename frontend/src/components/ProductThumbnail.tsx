@@ -13,11 +13,11 @@ export function ProductThumbnail({ item, className }: Props) {
     : null
 
   return (
-    <div className={cn('w-36 h-36 rounded-xl overflow-hidden bg-stone-100 flex items-center justify-center shrink-0', className)}>
+    <div className={cn('w-16 h-16 rounded-lg overflow-hidden bg-stone-100 flex items-center justify-center shrink-0', className)}>
       {src ? (
         <img src={src} alt={item.name} className="w-full h-full object-cover" />
       ) : (
-        <span className="text-5xl" role="img" aria-label={item.name}>🥯</span>
+        <span className="text-2xl" role="img" aria-label={item.name}>🥯</span>
       )}
     </div>
   )
