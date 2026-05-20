@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import type { MenuItem } from '@/types/menu'
 import { cn } from '@/lib/utils/cn'
+import { useCategoryOptions } from '../hooks/useCategoryOptions'
 
 const schema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -27,6 +28,7 @@ export function MenuItemFormModal({ item, onSave, onClose, isSaving, saveError }
   const { register, handleSubmit, reset, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues>,
   })
+  const { data: categoryOptions = [] } = useCategoryOptions()
 
   useEffect(() => {
     if (item) {
@@ -57,7 +59,19 @@ export function MenuItemFormModal({ item, onSave, onClose, isSaving, saveError }
           </div>
           <div>
             <label className="block text-sm font-medium text-stone-700 mb-1">Category</label>
-            <input {...register('category')} className="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-400" />
+            <select
+              {...register('category')}
+              className={cn(
+                'w-full border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-400 bg-white capitalize',
+                errors.category ? 'border-red-400' : 'border-stone-300',
+              )}
+            >
+              <option value="">— Select category —</option>
+              {categoryOptions.map(opt => (
+                <option key={opt} value={opt} className="capitalize">{opt.replace(/_/g, ' ')}</option>
+              ))}
+            </select>
+            {errors.category && <p className="text-red-500 text-xs mt-1">{errors.category.message}</p>}
           </div>
           <div>
             <label className="block text-sm font-medium text-stone-700 mb-1">Image</label>
