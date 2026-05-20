@@ -16,15 +16,22 @@ function formatDate(dateStr: string) {
 }
 
 function OpenPOBanner({ session }: { session: Session }) {
+  const badge = (
+    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-green-700 bg-green-100 rounded-full px-2.5 py-1 shrink-0">
+      <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+      Pre-Order Open
+    </span>
+  )
+
   return (
-    <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 flex flex-col gap-3">
-      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+    <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 pb-2 flex flex-col gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-start gap-4">
         <div className="flex-1">
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-green-700 bg-green-100 rounded-full px-2.5 py-1 mb-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-            Pre-Order Open
-          </span>
-          <h3 className="text-lg font-bold text-stone-800">{session.title}</h3>
+          {/* Mobile: title + badge in same row */}
+          <div className="flex items-start justify-between gap-3 sm:block">
+            <h3 className="text-lg font-bold text-stone-800 leading-snug">{session.title}</h3>
+            <span className="sm:hidden">{badge}</span>
+          </div>
           {session.description && (
             <p className="text-stone-600 text-sm mt-1">{session.description}</p>
           )}
@@ -33,14 +40,25 @@ function OpenPOBanner({ session }: { session: Session }) {
             <span>⏰ Order by: {formatDate(session.order_deadline)}</span>
           </div>
         </div>
+        {/* Desktop: badge above button in right column */}
+        <div className="hidden sm:flex flex-col items-end gap-3 shrink-0">
+          {badge}
+          <Link
+            to={`/order/${session.id}`}
+            className="bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-xl px-6 py-3 text-sm transition-colors text-center"
+          >
+            Order Now →
+          </Link>
+        </div>
+        {/* Mobile: button full-width below */}
         <Link
           to={`/order/${session.id}`}
-          className="shrink-0 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-xl px-6 py-3 text-sm transition-colors text-center"
+          className="sm:hidden bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-xl px-6 py-3 text-sm transition-colors text-center"
         >
           Order Now →
         </Link>
       </div>
-      <div className="border-t border-amber-200 pt-2">
+      <div className="border-t border-amber-200 pt-1">
         <Link
           to={`/session/${session.id}/orders`}
           className="text-xs text-amber-600 hover:text-amber-800 hover:underline transition-colors"
