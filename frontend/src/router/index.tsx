@@ -25,7 +25,12 @@ export const router = createBrowserRouter([
       { path: '/session/:sessionId/orders', element: <SessionOrdersPage /> },
     ],
   },
-  { path: '/bismarck/login', element: <LoginPage /> },
+  {
+    element: <GuestWrapper />,
+    children: [
+      { path: '/bismarck/login', element: <LoginPage /> },
+    ],
+  },
   {
     element: <ProtectedRoute />,
     children: [

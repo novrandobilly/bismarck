@@ -36,7 +36,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-stone-50 px-4">
+    <div className="flex items-center justify-center py-16 px-4">
       <div className="w-full max-w-sm bg-white rounded-2xl shadow-md p-8">
         <h1 className="text-2xl font-bold text-stone-800 mb-1">Bismarck</h1>
         <p className="text-stone-500 text-sm mb-6">Admin Login</p>

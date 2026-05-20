@@ -19,7 +19,7 @@ export function OrderTable({ orders, onToggleFulfilled, isToggling }: Props) {
             <th className="text-left text-xs font-medium text-stone-500 uppercase py-3 px-4">Customer</th>
             <th className="text-left text-xs font-medium text-stone-500 uppercase py-3 px-4">Fulfillment</th>
             <th className="text-left text-xs font-medium text-stone-500 uppercase py-3 px-4">Items</th>
-            <th className="py-3 px-4"></th>
+            <th className="text-right text-xs font-medium text-stone-500 uppercase py-3 px-4">Price</th>
           </tr>
         </thead>
         <tbody>
