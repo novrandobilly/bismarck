@@ -34,7 +34,7 @@ export function AdminWrapper() {
     <div className="min-h-screen bg-stone-50 font-sans flex flex-col">
       <header className="sticky top-0 z-10 bg-stone-900 border-b border-stone-800">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/bismarck/sessions" className="text-white font-extrabold text-lg">🥯 Bismarck</Link>
+          <Link to="/bismarck/dashboard" className="text-white font-extrabold text-lg">🥯 Bismarck</Link>
           <button
             type="button"
             onClick={logout}

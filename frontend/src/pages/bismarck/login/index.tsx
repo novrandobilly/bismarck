@@ -26,12 +26,12 @@ export default function LoginPage() {
   } = useForm<FormValues>({ resolver: zodResolver(schema) })
 
   useEffect(() => {
-    if (pb.authStore.isValid) navigate('/bismarck/sessions', { replace: true })
+    if (pb.authStore.isValid) navigate('/bismarck/dashboard', { replace: true })
   }, [navigate])
 
   function onSubmit(values: FormValues) {
     login(values, {
-      onSuccess: () => navigate('/bismarck/sessions', { replace: true }),
+      onSuccess: () => navigate('/bismarck/dashboard', { replace: true }),
     })
   }
 

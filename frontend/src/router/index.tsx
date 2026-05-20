@@ -5,6 +5,7 @@ import HomePage from '@/pages/home'
 import LoginPage from '@/pages/bismarck/login'
 import NotFoundPage from '@/pages/not-found'
 import MenuCatalogPage from '@/pages/bismarck/menu'
+import DashboardPage from '@/pages/bismarck/dashboard'
 import SessionsDashboardPage from '@/pages/bismarck/sessions'
 import SessionNewPage from '@/pages/bismarck/sessions/new'
 import SessionDetailPage from '@/pages/bismarck/sessions/detail'
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
       {
         element: <AdminWrapper />,
         children: [
+          { path: '/bismarck/dashboard', element: <DashboardPage /> },
           { path: '/bismarck/sessions', element: <SessionsDashboardPage /> },
           { path: '/bismarck/sessions/new', element: <SessionNewPage /> },
           { path: '/bismarck/sessions/:id', element: <SessionDetailPage /> },

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useMenuItems } from '@/hooks/useMenuItems'
 import { useMenuItemMutations, type MenuItemFormData } from './hooks/useMenuItemMutations'
 import { MenuItemRow } from './features/MenuItemRow'
@@ -7,9 +8,12 @@ import { LoadingSpinner } from '@/components/LoadingSpinner'
 import type { MenuItem } from '@/types/menu'
 
 export default function MenuCatalogPage() {
+  const location = useLocation()
   const { data: items = [], isLoading } = useMenuItems()
   const { createItem, updateItem, toggleActive } = useMenuItemMutations()
-  const [editTarget, setEditTarget] = useState<MenuItem | null | undefined>(undefined)
+  const [editTarget, setEditTarget] = useState<MenuItem | null | undefined>(
+    (location.state as { openNew?: boolean } | null)?.openNew ? null : undefined,
+  )
 
   const [saveError, setSaveError] = useState<string | null>(null)
 
