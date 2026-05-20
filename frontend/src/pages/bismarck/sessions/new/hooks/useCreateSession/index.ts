@@ -18,8 +18,8 @@ async function createSession(values: SessionFormValues): Promise<Session> {
   const session = await pb.collection('preorder_sessions').create<Session>({
     title: values.title,
     description: values.description,
-    fulfillment_date: values.fulfillment_date,
-    order_deadline: values.order_deadline,
+    fulfillment_date: new Date(values.fulfillment_date).toISOString(),
+    order_deadline: new Date(values.order_deadline).toISOString(),
     max_orders: values.max_orders,
     status: 'open',
     allow_pickup: values.allow_pickup,
