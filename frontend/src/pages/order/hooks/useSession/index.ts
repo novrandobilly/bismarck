@@ -13,12 +13,12 @@ async function fetchSession(sessionId: string): Promise<SessionData> {
   const [session, sessionItems, orderCountResult] = await Promise.all([
     pb.collection('preorder_sessions').getOne<Session>(sessionId),
     pb.collection('preorder_session_items').getFullList<SessionItem>({
-      filter: pb.filter('session = {:id} && is_available = true', { id: sessionId }),
+      filter: pb.filter('preorder_session = {:id} && is_available = true', { id: sessionId }),
       expand: 'menu_item',
       sort: '+menu_item.name',
     }),
     pb.collection('orders').getList(1, 1, {
-      filter: pb.filter('session = {:id}', { id: sessionId }),
+      filter: pb.filter('preorder_session = {:id}', { id: sessionId }),
       fields: 'id',
     }),
   ])

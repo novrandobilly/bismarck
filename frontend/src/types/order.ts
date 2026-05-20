@@ -2,7 +2,7 @@ export type FulfillmentType = 'pickup' | 'delivery' | 'custom'
 
 export interface Order {
   id: string
-  session: string
+  preorder_session: string
   customer_name: string
   whatsapp: string
   fulfillment_type: FulfillmentType
@@ -18,10 +18,10 @@ export interface Order {
 export interface OrderItem {
   id: string
   order: string
-  session_item: string
+  preorder_session_item: string
   quantity: number
   expand?: {
-    session_item?: import('./menu').SessionItem
+    preorder_session_item?: import('./menu').SessionItem
   }
 }
 

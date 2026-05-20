@@ -12,7 +12,7 @@ export interface MenuItem {
 
 export interface SessionItem {
   id: string
-  session: string
+  preorder_session: string
   menu_item: string
   price: number
   is_available: boolean

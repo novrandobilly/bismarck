@@ -12,8 +12,8 @@ async function fetchSessionDetail(id: string): Promise<SessionDetailData> {
   const [session, orders] = await Promise.all([
     pb.collection('preorder_sessions').getOne<Session>(id),
     pb.collection('orders').getFullList<Order>({
-      filter: pb.filter('session = {:id}', { id }),
-      expand: 'order_items(order).session_item.menu_item',
+      filter: pb.filter('preorder_session = {:id}', { id }),
+      expand: 'order_items(order).preorder_session_item.menu_item',
       sort: '+created',
     }),
   ])

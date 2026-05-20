@@ -27,7 +27,7 @@ export function OrderRow({ order, onToggleFulfilled, isToggling }: Props) {
       </td>
       <td className="py-3 px-4">
         {orderItems.map(oi => {
-          const name = oi.expand?.session_item?.expand?.menu_item?.name ?? 'Item'
+          const name = oi.expand?.preorder_session_item?.expand?.menu_item?.name ?? 'Item'
           return <p key={oi.id} className="text-xs text-stone-600">{oi.quantity}x {name}</p>
         })}
       </td>

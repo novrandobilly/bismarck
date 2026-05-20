@@ -31,7 +31,7 @@ async function createSession(values: SessionFormValues): Promise<Session> {
     await Promise.all(
       values.selectedItems.map(item =>
         pb.collection('preorder_session_items').create({
-          session: session.id,
+          preorder_session: session.id,
           menu_item: item.menu_item_id,
           price: item.price,
           is_available: item.is_available,

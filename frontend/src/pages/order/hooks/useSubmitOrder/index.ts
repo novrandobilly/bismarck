@@ -9,7 +9,7 @@ interface SubmitOrderInput {
 
 async function submitOrder({ sessionId, values }: SubmitOrderInput): Promise<string> {
   const order = await pb.collection('orders').create({
-    session: sessionId,
+    preorder_session: sessionId,
     customer_name: values.customer_name,
     whatsapp: values.whatsapp,
     fulfillment_type: values.fulfillment_type,
@@ -25,7 +25,7 @@ async function submitOrder({ sessionId, values }: SubmitOrderInput): Promise<str
       .map(item =>
         pb.collection('order_items').create({
           order: order.id,
-          session_item: item.session_item_id,
+          preorder_session_item: item.session_item_id,
           quantity: item.quantity,
         }),
       ),
