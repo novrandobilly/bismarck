@@ -16,7 +16,6 @@ async function submitOrder({ sessionId, values }: SubmitOrderInput): Promise<str
     delivery_address: values.delivery_address ?? '',
     custom_location: values.custom_location ?? '',
     notes: values.notes ?? '',
-    is_fulfilled: false,
   })
 
   await Promise.all(
