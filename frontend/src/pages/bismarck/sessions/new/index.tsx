@@ -117,13 +117,13 @@ export default function SessionNewPage() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-stone-700">Drop-off Locations</span>
-                <button type="button" onClick={() => appendLocation({ name: '', time: '' })} className="text-xs text-amber-600 hover:underline">+ Add Location</button>
+                <button type="button" onClick={() => appendLocation({ name: '', time: '' })} className="cursor-pointer text-xs text-amber-600 hover:underline">+ Add Location</button>
               </div>
               {locationFields.map((field, idx) => (
                 <div key={field.id} className="flex gap-2 mb-2">
                   <input {...register(`custom_locations.${idx}.name`)} placeholder="Location name" className="flex-1 border border-stone-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-400" />
                   <input {...register(`custom_locations.${idx}.time`)} placeholder="Time (e.g. 10:00 AM)" className="flex-1 border border-stone-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-400" />
-                  <button type="button" onClick={() => removeLocation(idx)} className="text-stone-400 hover:text-red-500 px-2">✕</button>
+                  <button type="button" onClick={() => removeLocation(idx)} className="cursor-pointer text-stone-400 hover:text-red-500 px-2">✕</button>
                 </div>
               ))}
             </div>
@@ -158,8 +158,8 @@ export default function SessionNewPage() {
           {error && <p className="text-red-500 text-sm">Failed to create session. Please try again.</p>}
 
           <div className="flex gap-3">
-            <button type="button" onClick={() => navigate('/bismarck/sessions')} className="flex-1 border border-stone-300 text-stone-700 rounded-xl py-3 text-sm hover:bg-stone-50 transition-colors">Cancel</button>
-            <button type="submit" disabled={isPending} className="flex-1 bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-semibold rounded-xl py-3 text-sm transition-colors">
+            <button type="button" onClick={() => navigate('/bismarck/sessions')} className="cursor-pointer flex-1 border border-stone-300 text-stone-700 rounded-xl py-3 text-sm hover:bg-stone-50 transition-colors">Cancel</button>
+            <button type="submit" disabled={isPending} className="cursor-pointer flex-1 bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-semibold rounded-xl py-3 text-sm transition-colors">
               {isPending ? 'Creating...' : 'Open Session'}
             </button>
           </div>

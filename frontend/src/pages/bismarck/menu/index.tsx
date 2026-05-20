@@ -37,13 +37,13 @@ export default function MenuCatalogPage() {
 
   return (
     <div className="min-h-screen bg-stone-50">
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-[1280px] mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-2xl font-bold text-stone-800">Menu Catalog</h1>
             <p className="text-stone-500 text-sm">{items.filter(i => i.is_active).length} active items</p>
           </div>
-          <button onClick={() => setEditTarget(null)} className="bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg px-4 py-2 text-sm transition-colors">
+          <button onClick={() => setEditTarget(null)} className="cursor-pointer bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg px-4 py-2 text-sm transition-colors">
             + Add Item
           </button>
         </div>

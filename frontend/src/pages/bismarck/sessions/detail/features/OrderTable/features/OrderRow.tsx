@@ -37,7 +37,7 @@ export function OrderRow({ order, onToggleFulfilled, isToggling }: Props) {
           onClick={() => onToggleFulfilled(order)}
           disabled={isToggling}
           className={cn(
-            'text-xs font-medium px-3 py-1.5 rounded-full border transition-colors',
+            'cursor-pointer text-xs font-medium px-3 py-1.5 rounded-full border transition-colors',
             order.is_fulfilled
               ? 'bg-green-50 border-green-200 text-green-700 hover:bg-green-100'
               : 'bg-stone-50 border-stone-200 text-stone-500 hover:bg-stone-100',

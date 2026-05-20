@@ -78,7 +78,7 @@ export default function OrderPage() {
             type="submit"
             disabled={isPending}
             aria-label={isPending ? 'Loading…' : undefined}
-            className="w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-semibold rounded-xl py-3 text-sm transition-colors mb-8"
+            className="cursor-pointer w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-semibold rounded-xl py-3 text-sm transition-colors mb-8"
           >
            {isPending ? <LoadingSpinner size="sm" /> : 'Place Order'}
           </button>

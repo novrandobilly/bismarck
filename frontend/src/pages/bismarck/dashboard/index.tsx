@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useSessions, hasOpenSession } from '@/pages/bismarck/sessions/hooks/useSessions'
 import { useMenuItems } from '@/hooks/useMenuItems'
 import { SessionCard } from '@/pages/bismarck/sessions/features/SessionCard'
+import { OpenSessionPreview } from './features/OpenSessionPreview'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { cn } from '@/lib/utils/cn'
 import type { MenuItem } from '@/types/menu'
@@ -39,7 +40,7 @@ export default function DashboardPage() {
   const navigate = useNavigate()
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-10">
+    <div className="max-w-[1280px] mx-auto px-4 py-8 space-y-10">
 
       {/* ── Preorder Sessions ─────────────────────────────── */}
       <section>
@@ -76,7 +77,7 @@ export default function DashboardPage() {
               <div>
                 <p className="text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">Open</p>
                 <div className="space-y-3">
-                  {openSessions.map(s => <SessionCard key={s.id} session={s} />)}
+                  {openSessions.map(s => <OpenSessionPreview key={s.id} session={s} />)}
                 </div>
               </div>
             )}
@@ -111,7 +112,7 @@ export default function DashboardPage() {
             <button
               onClick={() => navigate('/bismarck/menu', { state: { openNew: true } })}
               className={cn(
-                'bg-stone-900 hover:bg-stone-700 text-white text-sm font-semibold rounded-lg px-4 py-2 transition-colors',
+                'cursor-pointer bg-stone-900 hover:bg-stone-700 text-white text-sm font-semibold rounded-lg px-4 py-2 transition-colors',
               )}
             >
               + Add Item

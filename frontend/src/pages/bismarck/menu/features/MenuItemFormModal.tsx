@@ -79,8 +79,8 @@ export function MenuItemFormModal({ item, onSave, onClose, isSaving, saveError }
           </div>
           <div className="flex gap-3 pt-2">
             {saveError && <p className="text-red-500 text-xs mb-2 col-span-2">{saveError}</p>}
-            <button type="button" onClick={onClose} className="flex-1 border border-stone-300 text-stone-700 rounded-lg py-2 text-sm hover:bg-stone-50 transition-colors">Cancel</button>
-            <button type="submit" disabled={isSaving} className="flex-1 bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-semibold rounded-lg py-2 text-sm transition-colors">
+            <button type="button" onClick={onClose} className="cursor-pointer flex-1 border border-stone-300 text-stone-700 rounded-lg py-2 text-sm hover:bg-stone-50 transition-colors">Cancel</button>
+            <button type="submit" disabled={isSaving} className="cursor-pointer flex-1 bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-semibold rounded-lg py-2 text-sm transition-colors">
               {isSaving ? 'Saving...' : 'Save'}
             </button>
           </div>

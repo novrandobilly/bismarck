@@ -1,16 +1,36 @@
 import { Link, Outlet } from 'react-router-dom'
 import { useLogout } from '@/hooks/useLogout'
+import { useAuth } from '@/hooks/useAuth'
 
 export function GuestWrapper() {
+  const { isAuthenticated } = useAuth()
+  const logout = useLogout()
+
   return (
     <div className="min-h-screen bg-stone-50 font-sans flex flex-col">
       <header className="sticky top-0 z-10 bg-white border-b border-stone-100">
-        <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="max-w-[1280px] mx-auto px-4 py-3 flex items-center justify-between">
           <Link to="/" className="text-stone-900 font-extrabold text-lg">🥯 Bismarck Bagel</Link>
-          <nav className="flex items-center gap-6 text-sm text-stone-600">
+          <nav className="flex items-center gap-4 text-sm text-stone-600">
             <Link to="/" className="hover:text-stone-900 transition-colors">Home</Link>
-            {/* /menu route will be added when public menu page is built */}
             <Link to="/menu" className="hover:text-stone-900 transition-colors">Menu</Link>
+            {isAuthenticated && (
+              <>
+                <Link
+                  to="/bismarck/dashboard"
+                  className="hover:text-stone-900 transition-colors font-medium text-amber-700"
+                >
+                  Dashboard →
+                </Link>
+                <button
+                  type="button"
+                  onClick={logout}
+                  className="cursor-pointer text-stone-400 hover:text-stone-700 transition-colors"
+                >
+                  Logout
+                </button>
+              </>
+            )}
           </nav>
         </div>
       </header>
@@ -18,7 +38,7 @@ export function GuestWrapper() {
         <Outlet />
       </main>
       <footer className="border-t border-stone-200">
-        <div className="max-w-3xl mx-auto px-4 py-6 flex items-center justify-between text-xs text-stone-400">
+        <div className="max-w-[1280px] mx-auto px-4 py-6 flex items-center justify-between text-xs text-stone-400">
           <span>© {new Date().getFullYear()} Bismarck Bagel</span>
           <span>Made with 🥯 & wild yeast</span>
         </div>
@@ -33,12 +53,20 @@ export function AdminWrapper() {
   return (
     <div className="min-h-screen bg-stone-50 font-sans flex flex-col">
       <header className="sticky top-0 z-10 bg-stone-900 border-b border-stone-800">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/bismarck/dashboard" className="text-white font-extrabold text-lg">🥯 Bismarck</Link>
+        <div className="max-w-[1280px] mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <Link to="/bismarck/dashboard" className="text-white font-extrabold text-lg">🥯 Bismarck</Link>
+            <Link
+              to="/"
+              className="text-stone-400 hover:text-white text-sm transition-colors"
+            >
+              View Store ↗
+            </Link>
+          </div>
           <button
             type="button"
             onClick={logout}
-            className="text-stone-400 hover:text-white text-sm transition-colors"
+            className="cursor-pointer text-stone-400 hover:text-white text-sm transition-colors"
           >
             Logout
           </button>

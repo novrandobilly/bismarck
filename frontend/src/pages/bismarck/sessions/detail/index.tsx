@@ -34,10 +34,10 @@ export default function SessionDetailPage() {
 
   return (
     <div className="min-h-screen bg-stone-50">
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-[1280px] mx-auto px-4 py-8">
         <div className="flex items-start justify-between gap-4 mb-6">
           <div>
-            <button onClick={() => navigate('/bismarck/sessions')} className="text-xs text-stone-400 hover:text-stone-600 mb-2 flex items-center gap-1">← Sessions</button>
+      <button onClick={() => navigate('/bismarck/sessions')} className="cursor-pointer text-xs text-stone-400 hover:text-stone-600 mb-2 flex items-center gap-1">← Sessions</button>
             <h1 className="text-2xl font-bold text-stone-800">{session.title}</h1>
             <p className="text-stone-500 text-sm mt-0.5">
               Ready: {new Date(session.fulfillment_date).toLocaleDateString('en-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
@@ -48,7 +48,11 @@ export default function SessionDetailPage() {
               {isOpen ? 'Open' : 'Closed'}
             </span>
             {isOpen && (
-              <button onClick={handleClose} disabled={isClosing} className="text-xs text-red-500 hover:underline disabled:opacity-60">
+              <button
+                onClick={handleClose}
+                disabled={isClosing}
+                className="cursor-pointer text-xs text-red-500 hover:underline disabled:opacity-60"
+              >
                 Close session
               </button>
             )}
@@ -58,7 +62,7 @@ export default function SessionDetailPage() {
         {isOpen && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 mb-6 flex items-center gap-3">
             <span className="text-sm text-amber-700 flex-1 truncate">{shareUrl}</span>
-            <button onClick={() => navigator.clipboard.writeText(shareUrl)} className="text-xs text-amber-600 hover:underline shrink-0">Copy link</button>
+            <button onClick={() => navigator.clipboard.writeText(shareUrl)} className="cursor-pointer text-xs text-amber-600 hover:underline shrink-0">Copy link</button>
           </div>
         )}
 

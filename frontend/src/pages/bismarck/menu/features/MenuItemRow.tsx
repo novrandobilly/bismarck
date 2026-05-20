@@ -27,8 +27,8 @@ export function MenuItemRow({ item, onEdit, onToggleActive }: Props) {
         </span>
       </td>
       <td className="py-3 px-4 text-right">
-        <button onClick={() => onEdit(item)} className="text-xs text-amber-600 hover:underline mr-3">Edit</button>
-        <button onClick={() => onToggleActive(item)} className="text-xs text-stone-500 hover:underline">
+        <button onClick={() => onEdit(item)} className="cursor-pointer text-xs text-amber-600 hover:underline mr-3">Edit</button>
+        <button onClick={() => onToggleActive(item)} className="cursor-pointer text-xs text-stone-500 hover:underline">
           {item.is_active ? 'Archive' : 'Restore'}
         </button>
       </td>
