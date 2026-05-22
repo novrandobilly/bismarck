@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useOrderBill } from './hooks/useOrderBill'
 import { useVerifyPhone } from './hooks/useVerifyPhone'
 import { PhonePrompt } from './features/PhonePrompt'
@@ -13,8 +13,12 @@ interface Props {
 export function BillModal({ orderId }: Props) {
   const [verified, setVerified] = useState(false)
   const { close } = useModal()
-  const { data: order, isLoading } = useOrderBill(orderId)
+  const { data: order, isLoading, isError } = useOrderBill(orderId)
   const { verify, error } = useVerifyPhone(order?.whatsapp ?? '')
+
+  useEffect(() => {
+    setVerified(false)
+  }, [orderId])
 
   function handleVerify(last4: string) {
     if (verify(last4)) setVerified(true)
@@ -28,7 +32,20 @@ export function BillModal({ orderId }: Props) {
     )
   }
 
-  if (!order) return null
+  if (isError || !order) {
+    return (
+      <div className="p-6 text-center">
+        <p className="text-stone-500 text-sm mb-4">Couldn't load your bill. Please try again.</p>
+        <button
+          type="button"
+          onClick={close}
+          className="text-stone-400 text-sm hover:text-stone-600 transition-colors"
+        >
+          Close
+        </button>
+      </div>
+    )
+  }
 
   if (verified) {
     return <BillDetail order={order} onClose={close} />
