@@ -13,14 +13,18 @@ export function ModalProvider({ children }: { children: ReactNode }) {
     <ModalContext.Provider value={{ open, close }}>
       {children}
       {content &&
+        document.body &&
         createPortal(
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
             onClick={close}
+            onKeyDown={(e) => e.key === 'Escape' && close()}
           >
             <div
               className="w-full max-w-sm bg-white rounded-2xl shadow-xl"
               onClick={(e) => e.stopPropagation()}
+              tabIndex={-1}
+              autoFocus
             >
               {content}
             </div>

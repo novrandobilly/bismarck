@@ -21,7 +21,7 @@ function OpenPOBanner({ session }: { session: Session }) {
       <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
       Pre-Order Open
     </span>
-  )
+  );
 
   return (
     <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 pb-2 flex flex-col gap-3">
@@ -29,7 +29,9 @@ function OpenPOBanner({ session }: { session: Session }) {
         <div className="flex-1">
           {/* Mobile: title + badge in same row */}
           <div className="flex items-start justify-between gap-3 sm:block">
-            <h3 className="text-lg font-bold text-stone-800 leading-snug">{session.title}</h3>
+            <h3 className="text-lg font-bold text-stone-800 leading-snug">
+              {session.title}
+            </h3>
             <span className="sm:hidden">{badge}</span>
           </div>
           {session.description && (
@@ -122,7 +124,7 @@ export default function HomePage() {
             Homemade · Small Batch
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-stone-900 leading-tight">
-            Bismarck Bagel
+            Envien Bagel
           </h1>
           <p className="text-stone-500 mt-3 max-w-sm text-base">
             Sourdough bagels baked with wild yeast, slow fermentation, and a lot

@@ -33,13 +33,13 @@ useAuth() → { isAuthenticated: boolean, user: AuthModel | null }
 
 Typed typography component. Variant drives size, weight, and color. Render tag is inferred from variant but overridable via `as`.
 
-| Variant   | Default tag | Tailwind classes                                      |
-|-----------|-------------|-------------------------------------------------------|
-| `h1`      | `h1`        | `text-3xl font-extrabold text-stone-900`              |
-| `h2`      | `h2`        | `text-2xl font-bold text-stone-800`                   |
-| `h3`      | `h3`        | `text-lg font-semibold text-stone-800`                |
-| `body`    | `p`         | `text-sm text-stone-700`                              |
-| `caption` | `p`         | `text-xs text-stone-500`                              |
+| Variant   | Default tag | Tailwind classes                                             |
+| --------- | ----------- | ------------------------------------------------------------ |
+| `h1`      | `h1`        | `text-3xl font-extrabold text-stone-900`                     |
+| `h2`      | `h2`        | `text-2xl font-bold text-stone-800`                          |
+| `h3`      | `h3`        | `text-lg font-semibold text-stone-800`                       |
+| `body`    | `p`         | `text-sm text-stone-700`                                     |
+| `caption` | `p`         | `text-xs text-stone-500`                                     |
 | `label`   | `p`         | `text-xs font-bold uppercase tracking-widest text-stone-400` |
 
 **Props:** `variant`, `as` (tag override), `className` (escape hatch), `children`
@@ -52,14 +52,14 @@ Typed typography component. Variant drives size, weight, and color. Render tag i
 
 Six variants × four sizes with disabled and loading states. Loading state renders an inline `LoadingSpinner` (sm) replacing the label text.
 
-| Variant        | Appearance                                 |
-|----------------|--------------------------------------------|
-| `primary`      | amber-500 fill, white text                 |
-| `dark`         | stone-900 fill, white text                 |
-| `outline`      | white bg, stone-300 border, stone-800 text |
-| `outline-amber`| transparent, amber-500 border + text       |
-| `ghost`        | transparent, stone-500 text, underline     |
-| `danger`       | red-500 fill, white text                   |
+| Variant         | Appearance                                 |
+| --------------- | ------------------------------------------ |
+| `primary`       | amber-500 fill, white text                 |
+| `dark`          | stone-900 fill, white text                 |
+| `outline`       | white bg, stone-300 border, stone-800 text |
+| `outline-amber` | transparent, amber-500 border + text       |
+| `ghost`         | transparent, stone-500 text, underline     |
+| `danger`        | red-500 fill, white text                   |
 
 **Sizes:** `sm`, `md` (default), `lg`, `full`
 
@@ -73,11 +73,11 @@ Six variants × four sizes with disabled and loading states. Loading state rende
 
 Amber ring spinner. Three usage modes via props.
 
-| Mode | Props | Behaviour |
-|------|-------|-----------|
-| Inline | *(none)* | Renders spinner only — placed inside buttons or next to text |
-| Section | `centered` | Wraps in a full-width flex container, vertically centered — replaces `animate-pulse` skeletons |
-| Full-screen | `overlay` | Fixed full-screen semi-transparent backdrop with centered spinner — used for login/submit flows |
+| Mode        | Props      | Behaviour                                                                                       |
+| ----------- | ---------- | ----------------------------------------------------------------------------------------------- |
+| Inline      | _(none)_   | Renders spinner only — placed inside buttons or next to text                                    |
+| Section     | `centered` | Wraps in a full-width flex container, vertically centered — replaces `animate-pulse` skeletons  |
+| Full-screen | `overlay`  | Fixed full-screen semi-transparent backdrop with centered spinner — used for login/submit flows |
 
 **Sizes:** `sm` (16 px border-2), `md` (32 px border-4, default)
 
@@ -94,7 +94,7 @@ Amber ring spinner. Three usage modes via props.
 Both sub-components exported from the same index, importable as:
 
 ```ts
-import { GuestWrapper, AdminWrapper } from '@/components/MainWrapper'
+import { GuestWrapper, AdminWrapper } from "@/components/MainWrapper";
 ```
 
 Both use `useAuth` internally.
@@ -104,10 +104,10 @@ Both use `useAuth` internally.
 Wraps public-facing pages (`/`, `/order/*`).
 
 - **Top bar:** sticky, white bg, stone border-b
-  - Left: `🥯 Bismarck Bagel` logo (links to `/`)
+  - Left: `🥯 Envien Bagel` logo (links to `/`)
   - Right: `Home` + `Menu` nav links in stone-600
 - **Body:** `<Outlet />` / `children`
-- **Footer:** matching current homepage footer (`© year Bismarck Bagel · Made with 🥯 & wild yeast`)
+- **Footer:** matching current homepage footer (`© year Envien Bagel · Made with 🥯 & wild yeast`)
 
 ### `AdminWrapper`
 
