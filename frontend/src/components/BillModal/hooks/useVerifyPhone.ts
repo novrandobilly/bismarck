@@ -4,7 +4,8 @@ export function useVerifyPhone(whatsapp: string) {
   const [error, setError] = useState<string | null>(null)
 
   function verify(last4: string): boolean {
-    if (last4.length !== 4) {
+    const last4Digits = last4.replace(/\D/g, '')
+    if (last4Digits.length !== 4) {
       setError('Please enter 4 digits.')
       return false
     }
@@ -13,7 +14,7 @@ export function useVerifyPhone(whatsapp: string) {
       return false
     }
     const digits = whatsapp.replace(/\D/g, '')
-    if (digits.endsWith(last4)) {
+    if (digits.endsWith(last4Digits)) {
       setError(null)
       return true
     }
