@@ -28,7 +28,7 @@ export default function OrderPage() {
 
   function onSubmit(values: OrderFormValues) {
     submitOrder({ sessionId: sessionId!, values }, {
-      onSuccess: () => navigate(`/session/${sessionId}/orders`),
+      onSuccess: (orderId) => navigate(`/order/${sessionId}/success?orderId=${orderId}`),
     })
   }
 
