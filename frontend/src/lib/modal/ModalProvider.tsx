@@ -18,11 +18,11 @@ export function ModalProvider({ children }: { children: ReactNode }) {
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
             onClick={close}
-            onKeyDown={(e) => e.key === 'Escape' && close()}
           >
             <div
               className="w-full max-w-sm bg-white rounded-2xl shadow-xl"
               onClick={(e) => e.stopPropagation()}
+              onKeyDown={(e) => e.key === 'Escape' && close()}
               tabIndex={-1}
               autoFocus
             >
