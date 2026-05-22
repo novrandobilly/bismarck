@@ -4,6 +4,9 @@ import { LoadingSpinner } from "@/components/LoadingSpinner";
 import type { Order, OrderItem } from "@/types/order";
 import type { SessionItem } from "@/types/menu";
 import { cn } from "@/lib/utils/cn";
+import { useModal } from "@/lib/modal/useModal";
+import { BillModal } from "@/components/BillModal";
+import { BANK_INFO } from "@/lib/bankInfo";
 
 function maskName(name: string): string {
   const parts = name.trim().split(/\s+/);
@@ -29,7 +32,15 @@ function formatDate(dateStr: string) {
   });
 }
 
-function OrderCard({ order, index }: { order: Order; index: number }) {
+function OrderCard({
+  order,
+  index,
+  onViewBill,
+}: {
+  order: Order;
+  index: number;
+  onViewBill: () => void;
+}) {
   const orderItems = (order.expand?.["order_items(order)"] ??
     []) as OrderItem[];
 
@@ -53,16 +64,25 @@ function OrderCard({ order, index }: { order: Order; index: number }) {
               {maskPhone(order.whatsapp)}
             </p>
           </div>
-          <span
-            className={cn(
-              "text-xs font-semibold px-2.5 py-1 rounded-full shrink-0",
-              order.is_fulfilled
-                ? "bg-green-100 text-green-700"
-                : "bg-amber-50 text-amber-700",
-            )}
-          >
-            {order.is_fulfilled ? "✓ Ready" : "Processing"}
-          </span>
+          <div className="flex items-center gap-2 shrink-0">
+            <span
+              className={cn(
+                "text-xs font-semibold px-2.5 py-1 rounded-full",
+                order.is_fulfilled
+                  ? "bg-green-100 text-green-700"
+                  : "bg-amber-50 text-amber-700",
+              )}
+            >
+              {order.is_fulfilled ? "✓ Ready" : "Processing"}
+            </span>
+            <button
+              type="button"
+              onClick={onViewBill}
+              className="text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-white px-3 py-1 rounded-full transition-colors"
+            >
+              View Bill →
+            </button>
+          </div>
         </div>
         {orderItems.length > 0 && (
           <div className="mt-2 space-y-0.5">
@@ -87,6 +107,7 @@ function OrderCard({ order, index }: { order: Order; index: number }) {
 export default function SessionOrdersPage() {
   const { sessionId } = useParams<{ sessionId: string }>();
   const { data, isLoading, isError } = useSessionOrdersPublic(sessionId);
+  const { open } = useModal();
 
   if (isLoading) {
     return (
@@ -119,7 +140,7 @@ export default function SessionOrdersPage() {
   return (
     <div className="min-h-screen bg-stone-50">
       <div className="max-w-2xl mx-auto px-4 py-8">
-        {/* Header */}
+        {/* Header — unchanged */}
         <div className="mb-6">
           <Link
             to="/"
@@ -133,18 +154,14 @@ export default function SessionOrdersPage() {
           </p>
         </div>
 
-        {/* Summary bar */}
+        {/* Summary bar — unchanged */}
         <div className="bg-white rounded-2xl px-5 py-4 mb-6 flex items-center justify-between gap-4">
           <div>
-            <p className="text-2xl font-extrabold text-stone-800">
-              {orders.length}
-            </p>
+            <p className="text-2xl font-extrabold text-stone-800">{orders.length}</p>
             <p className="text-xs text-stone-400 mt-0.5">Total orders</p>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-extrabold text-green-600">
-              {fulfilled}
-            </p>
+            <p className="text-2xl font-extrabold text-green-600">{fulfilled}</p>
             <p className="text-xs text-stone-400 mt-0.5">Ready for pickup</p>
           </div>
           <div className="flex-1 max-w-30">
@@ -152,19 +169,26 @@ export default function SessionOrdersPage() {
               <div
                 className="h-full bg-green-400 rounded-full transition-all"
                 style={{
-                  width: orders.length
-                    ? `${(fulfilled / orders.length) * 100}%`
-                    : "0%",
+                  width: orders.length ? `${(fulfilled / orders.length) * 100}%` : "0%",
                 }}
               />
             </div>
             <p className="text-xs text-stone-400 mt-1 text-right">
-              {orders.length
-                ? Math.round((fulfilled / orders.length) * 100)
-                : 0}
-              % ready
+              {orders.length ? Math.round((fulfilled / orders.length) * 100) : 0}% ready
             </p>
           </div>
+        </div>
+
+        {/* Payment banner */}
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl px-5 py-4 mb-6">
+          <p className="font-bold text-amber-900 text-sm mb-1">💳 How to Pay</p>
+          <p className="text-amber-800 text-sm leading-relaxed">
+            {BANK_INFO.bank} · <strong>{BANK_INFO.accountNumber}</strong> · a/n{" "}
+            <strong>{BANK_INFO.accountHolder}</strong>
+          </p>
+          <p className="text-amber-700 text-xs mt-1">
+            Forgot your bill details? No worries — tap <strong>View Bill</strong> next to your name below 👇
+          </p>
         </div>
 
         {/* Order list */}
@@ -180,7 +204,12 @@ export default function SessionOrdersPage() {
               Order List
             </p>
             {orders.map((order, i) => (
-              <OrderCard key={order.id} order={order} index={i} />
+              <OrderCard
+                key={order.id}
+                order={order}
+                index={i}
+                onViewBill={() => open(<BillModal orderId={order.id} />)}
+              />
             ))}
           </div>
         )}
