@@ -24,6 +24,7 @@ export function PhonePrompt({ onVerify, onCancel, error }: Props) {
         onChange={(e) => setValue(e.target.value.replace(/\D/g, ''))}
         placeholder="_ _ _ _"
         className="w-full border border-stone-300 rounded-lg py-2.5 px-3 text-center text-xl tracking-widest font-bold text-stone-800 focus:outline-none focus:border-amber-400 mb-1"
+        aria-label="Last 4 digits of WhatsApp number"
       />
       <div className="h-4 mb-2">
         {error && <p className="text-xs text-red-500">{error}</p>}
